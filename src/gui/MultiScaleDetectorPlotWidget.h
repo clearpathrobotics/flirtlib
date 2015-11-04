@@ -24,12 +24,13 @@
 #include <QtGui/QGridLayout>
 #include <QtCore/QVector>
 #include <QtGui/QColor>
-#include <qwt_plot.h>
-#include <qwt_plot_curve.h>
-#include <qwt_plot_marker.h>
-#include <qwt_symbol.h>
-#include <qwt_plot_zoomer.h>
-#include <qwt_plot_layout.h>
+#include <qwt/qwt_plot.h>
+#include <qwt/qwt_plot_curve.h>
+#include <qwt/qwt_plot_marker.h>
+#include <qwt/qwt_symbol.h>
+#include <qwt/qwt_plot_zoomer.h>
+#include <qwt/qwt_plot_layout.h>
+#include <qwt/qwt_point_data.h>
 
 class MultiScaleDetectorPlotWidget: public QWidget {
     Q_OBJECT

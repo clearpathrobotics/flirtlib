@@ -25,9 +25,15 @@
 
 #include <geometry/point.h>
 #include <vector>
+#include <iostream>
+
+#if __APPLE__
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#else
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <iostream>
+#endif
 
 class PolarGridRenderer: public AbstractRenderer {
     public:

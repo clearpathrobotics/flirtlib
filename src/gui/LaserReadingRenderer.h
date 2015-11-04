@@ -25,8 +25,13 @@
 
 #include <geometry/point.h>
 #include <vector>
+#if __APPLE__
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#else
 #include <GL/gl.h>
 #include <GL/glu.h>
+#endif
 #include <iostream>
 
 class LaserReadingRenderer: public AbstractRenderer {
