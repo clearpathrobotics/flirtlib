@@ -26,13 +26,14 @@
 #include <sys/time.h>
 
 
-RansacFeatureSetMatcher::RansacFeatureSetMatcher(double acceptanceThreshold, double successProbability, double inlierProbability, double distanceThreshold, double rigidityThreshold, bool adaptive):
+RansacFeatureSetMatcher::RansacFeatureSetMatcher(double acceptanceThreshold, double successProbability, double inlierProbability, double distanceThreshold, double rigidityThreshold, bool adaptive, bool inliersScore):
     AbstractFeatureSetMatcher(acceptanceThreshold),
     m_successProbability(successProbability),
     m_inlierProbability(inlierProbability),
     m_distanceThreshold(distanceThreshold),
     m_rigidityThreshold(rigidityThreshold),
-    m_adaptive(adaptive)
+    m_adaptive(adaptive),
+    m_scoreInliersOnly(inliersScore)
 {
 
 }
@@ -124,7 +125,9 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
     }
     compute2DPose(pointCorrespondences, transformation);
     double score = verifyHypothesis(reference, data, transformation, correspondences);
-    // Modify the score to be the sum of the errors of the inliers only
-    score -= (data.size()-correspondences.size())*m_acceptanceThreshold;
+    if (m_scoreInliersOnly){
+      // Modify the score to be the sum of the errors of the inliers only
+      score -= (data.size()-correspondences.size())*m_acceptanceThreshold;
+    }
     return score;   
 }
