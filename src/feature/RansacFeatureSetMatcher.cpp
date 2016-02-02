@@ -123,5 +123,8 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
 	pointCorrespondences[i] = std::make_pair(correspondences[i].first->getPosition(), correspondences[i].second->getPosition());
     }
     compute2DPose(pointCorrespondences, transformation);
-    return verifyHypothesis(reference, data, transformation, correspondences);
+    double score = verifyHypothesis(reference, data, transformation, correspondences);
+    // Modify the score to be the sum of the errors of the inliers only
+    score -= (data.size()-correspondences.size())*m_acceptanceThreshold;
+    return score;   
 }
