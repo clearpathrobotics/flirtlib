@@ -47,7 +47,7 @@ class RansacFeatureSetMatcher: public AbstractFeatureSetMatcher {
 	 * @param rigidityThreshold The maximum value (in meters) of difference between the relative distance of two interest points. This implements a rigidity check in the RANSAC hypothesis generation.
 	 * @param adaptive The flag to set the adaptive strategy to compute the number of RANSAC iterations (EXPERIMENTAL!!!).
 	 */
-	RansacFeatureSetMatcher(double acceptanceThreshold, double successProbability, double inlierProbability, double distanceThreshold, double rigidityThreshold, bool adaptive = false);
+       RansacFeatureSetMatcher(double acceptanceThreshold, double successProbability, double inlierProbability, double distanceThreshold, double rigidityThreshold, bool adaptive = false, bool inliersScore = false);
 	
 	/** Default destructor. */
 	virtual ~RansacFeatureSetMatcher() { }
@@ -95,6 +95,7 @@ class RansacFeatureSetMatcher: public AbstractFeatureSetMatcher {
 	double m_distanceThreshold; /**< The maximum distance (dimensionless) for two descriptors to be considered as a valid match. This threshold depends on the actual distance employed. */
 	double m_rigidityThreshold; /**< The maximum value (in meters) of difference between the relative distance of two interest points. This implements a rigidity check in the RANSAC hypothesis generation. */
 	bool m_adaptive; /**< The flag to set the adaptive strategy to compute the number of RANSAC iterations (EXPERIMENTAL!!!). */
+	bool m_scoreInliersOnly; /** This flag causes the returned score to involve only the found inliers. */
 };
 
 #endif
