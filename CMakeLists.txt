@@ -10,7 +10,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 add_subdirectory(src)
 
-option(BUILD_DOC "Build the documentation " ON)
+option(BUILD_DOC "Build the documentation " OFF)
 
 #-- Add the doc target to generate the API documentation
 if(BUILD_DOC)
