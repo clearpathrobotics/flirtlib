@@ -24,6 +24,8 @@
 #include <boost/random.hpp>
 #include <boost/random/uniform_smallint.hpp>
 #include <sys/time.h>
+#include <boost/foreach.hpp>
+#include <flann/flann.hpp>
 
 typedef std::pair<unsigned int, double> IndexedDistance;
 bool indexedDistanceCompare(const IndexedDistance& first, const IndexedDistance& second)
@@ -40,10 +42,10 @@ RansacFeatureSetMatcher::RansacFeatureSetMatcher(double acceptanceThreshold, dou
     m_rigidityThreshold(rigidityThreshold),
     m_adaptive(adaptive),
     m_scoreInliersOnly(inliersScore),
-    m_maxCorrespondences(std::numeric_limits<unsigned short>::max())
-{
-
-}
+    m_maxCorrespondences(std::numeric_limits<unsigned short>::max()),
+    m_flann(false),
+    m_flannChecks(64)
+{}
 
 double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &reference, const std::vector<InterestPoint *> &data, OrientedPoint2D& transformation) const
 {
@@ -58,44 +60,82 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
     unsigned int iterations = m_adaptive ? 1e17 : ceil(log(1. - m_successProbability)/log(1. - m_inlierProbability * m_inlierProbability));
     
     // Compute possible correspondences based on 1-NN thresholding
-   std::vector< std::pair<InterestPoint *, InterestPoint *> > possibleCorrespondences;
-   std::vector<IndexedDistance> minDistances;
-   for(unsigned int i = 0; i < data.size(); i++){
-	double minCorrespondenceDistance = 1e17;
-	unsigned int minCorrespondenceIndex = 0;
-	for(unsigned int j = 0; j < reference.size(); j++){
-	    double distance = data[i]->getDescriptor()->distance(reference[j]->getDescriptor());
-	    if(distance < minCorrespondenceDistance){
-		minCorrespondenceDistance = distance;
-		minCorrespondenceIndex = j;
-	    }
-	}
+    std::vector< std::pair<InterestPoint *, InterestPoint *> > possibleCorrespondences;
+    std::vector<IndexedDistance> minDistances;
 
-	if(minCorrespondenceDistance < m_distanceThreshold){
-	    possibleCorrespondences.push_back(std::make_pair(data[i], reference[minCorrespondenceIndex]));
-            minDistances.push_back(std::make_pair(minDistances.size(), minCorrespondenceDistance));
-	}
+    if (!m_flann){
+        for(unsigned int i = 0; i < data.size(); i++){
+            double minCorrespondenceDistance = 1e17;
+            unsigned int minCorrespondenceIndex = 0;
+            for(unsigned int j = 0; j < reference.size(); j++){
+                double distance = data[i]->getDescriptor()->distance(reference[j]->getDescriptor());
+                if(distance < minCorrespondenceDistance){
+                    minCorrespondenceDistance = distance;
+                    minCorrespondenceIndex = j;
+                }
+             }
+
+            if(minCorrespondenceDistance < m_distanceThreshold){
+                possibleCorrespondences.push_back(std::make_pair(data[i], reference[minCorrespondenceIndex]));
+                minDistances.push_back(std::make_pair(minDistances.size(), minCorrespondenceDistance));
+            }
+        }
+    }
+    else { /* m_flann */
+        // Number of nearest neighbours to use
+        size_t nn = 1;
+   
+        // Create and fill the flann matrices from the data and reference descriptors
+        std::vector<double> data_descriptors;
+        std::vector<double> reference_descriptors;
+        std::vector<int> indices(data.size()*nn);
+        std::vector<double> distances(data.size()*nn);
+
+        BOOST_FOREACH (const InterestPoint* ip, data){
+            ip->getDescriptor()->getFlatDescription(data_descriptors);
+        }
+
+        BOOST_FOREACH (const InterestPoint* ip, reference){
+            ip->getDescriptor()->getFlatDescription(reference_descriptors);
+        }
+
+        const size_t length = data_descriptors.size()/data.size();
+
+        flann::Matrix<double> flann_query(&data_descriptors[0], data.size(), length);
+        flann::Matrix<double> flann_reference(&reference_descriptors[0], reference.size(), length);
+        flann::Matrix<int> flann_indices(&indices[0], flann_query.rows, nn);
+        flann::Matrix<double> flann_distances(&distances[0], flann_query.rows, nn);
+
+        // construct a randomized kd-tree index using 4 kd-trees
+        flann::Index<flann::L2<double> > index(flann_reference, flann::KDTreeIndexParams(4));
+        index.buildIndex();
+
+        // do a knn search, using m_flannChecks checks
+        index.knnSearch(flann_query, flann_indices, flann_distances, nn, flann::SearchParams(m_flannChecks));
+
+        for (int i=0; i<data.size(); ++i){
+            possibleCorrespondences.push_back(std::make_pair(data[i], reference[indices[nn*i]]));
+            minDistances.push_back(std::make_pair(minDistances.size(), distances[nn*i]));
+        }
     }
     
     // Check if there are enough absolute matches 
     if(possibleCorrespondences.size() < 2){  
-// 	std::cout << "Not enough possible correspondences" << std::endl;
-	return 1e17;
+        // std::cout << "Not enough possible correspondences" << std::endl;
+	    return 1e17;
     }
 
-    if (possibleCorrespondences.size() > m_maxCorrespondences)
-    {
-      // sort the min distances
-      std::sort(minDistances.begin(), minDistances.end(), indexedDistanceCompare);
-      minDistances.resize(m_maxCorrespondences);
-      std::vector< std::pair<InterestPoint *, InterestPoint *> > tempCorrespondences;
-      tempCorrespondences.reserve(m_maxCorrespondences);
-      std::vector<IndexedDistance>::const_iterator iter = minDistances.begin();
-      for (; iter != minDistances.end(); ++iter)
-      {
-        tempCorrespondences.push_back(possibleCorrespondences[iter->first]);
-      }
-      possibleCorrespondences = tempCorrespondences;
+    if (possibleCorrespondences.size() > m_maxCorrespondences){
+        // sort the min distances
+        std::sort(minDistances.begin(), minDistances.end(), indexedDistanceCompare);
+        minDistances.resize(m_maxCorrespondences);
+        std::vector< std::pair<InterestPoint *, InterestPoint *> > tempCorrespondences;
+        tempCorrespondences.reserve(m_maxCorrespondences);
+        std::vector<IndexedDistance>::const_iterator iter = minDistances.begin();
+        for (; iter != minDistances.end(); ++iter){
+            tempCorrespondences.push_back(possibleCorrespondences[iter->first]);
+        }
+        possibleCorrespondences = tempCorrespondences;
     }
     
     // Check if there are enough matches compared to the inlier probability 
