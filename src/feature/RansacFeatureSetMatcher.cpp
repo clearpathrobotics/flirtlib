@@ -25,6 +25,12 @@
 #include <boost/random/uniform_smallint.hpp>
 #include <sys/time.h>
 
+typedef std::pair<unsigned int, double> IndexedDistance;
+bool indexedDistanceCompare(const IndexedDistance& first, const IndexedDistance& second)
+{
+  return first.second < second.second;
+}
+
 
 RansacFeatureSetMatcher::RansacFeatureSetMatcher(double acceptanceThreshold, double successProbability, double inlierProbability, double distanceThreshold, double rigidityThreshold, bool adaptive, bool inliersScore):
     AbstractFeatureSetMatcher(acceptanceThreshold),
@@ -33,7 +39,8 @@ RansacFeatureSetMatcher::RansacFeatureSetMatcher(double acceptanceThreshold, dou
     m_distanceThreshold(distanceThreshold),
     m_rigidityThreshold(rigidityThreshold),
     m_adaptive(adaptive),
-    m_scoreInliersOnly(inliersScore)
+    m_scoreInliersOnly(inliersScore),
+    m_maxCorrespondences(std::numeric_limits<unsigned short>::max())
 {
 
 }
@@ -52,6 +59,7 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
     
     // Compute possible correspondences based on 1-NN thresholding
    std::vector< std::pair<InterestPoint *, InterestPoint *> > possibleCorrespondences;
+   std::vector<IndexedDistance> minDistances;
    for(unsigned int i = 0; i < data.size(); i++){
 	double minCorrespondenceDistance = 1e17;
 	unsigned int minCorrespondenceIndex = 0;
@@ -62,8 +70,10 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
 		minCorrespondenceIndex = j;
 	    }
 	}
+
 	if(minCorrespondenceDistance < m_distanceThreshold){
 	    possibleCorrespondences.push_back(std::make_pair(data[i], reference[minCorrespondenceIndex]));
+            minDistances.push_back(std::make_pair(minDistances.size(), minCorrespondenceDistance));
 	}
     }
     
@@ -71,6 +81,21 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
     if(possibleCorrespondences.size() < 2){  
 // 	std::cout << "Not enough possible correspondences" << std::endl;
 	return 1e17;
+    }
+
+    if (possibleCorrespondences.size() > m_maxCorrespondences)
+    {
+      // sort the min distances
+      std::sort(minDistances.begin(), minDistances.end(), indexedDistanceCompare);
+      minDistances.resize(m_maxCorrespondences);
+      std::vector< std::pair<InterestPoint *, InterestPoint *> > tempCorrespondences;
+      tempCorrespondences.reserve(m_maxCorrespondences);
+      std::vector<IndexedDistance>::const_iterator iter = minDistances.begin();
+      for (; iter != minDistances.end(); ++iter)
+      {
+        tempCorrespondences.push_back(possibleCorrespondences[iter->first]);
+      }
+      possibleCorrespondences = tempCorrespondences;
     }
     
     // Check if there are enough matches compared to the inlier probability 
