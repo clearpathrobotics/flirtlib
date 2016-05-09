@@ -87,7 +87,7 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
         const size_t data_size = data.size();
         const size_t reference_size = reference.size();
 
-        if (!(data_size &&  reference_size)){
+        if (data_size == 0 || reference_size == 0){
           return std::numeric_limits<double>::max();
         }
 
