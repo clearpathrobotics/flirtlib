@@ -42,7 +42,7 @@ ENDIF("${CMAKE_SYSTEM}" MATCHES "Linux")
 # ---------------------------- Checking the Libraries ------------------------------
 # Library: Boost
 set(Boost_USE_MULTITHREADED ON)
-FIND_PACKAGE(Boost 1.36.0 COMPONENTS serialization program_options)
+FIND_PACKAGE(Boost 1.36.0 COMPONENTS serialization program_options timer system)
 #FIND_PACKAGE(Boost COMPONENTS program_options math graph)
 IF(Boost_FOUND AND Boost_SERIALIZATION_FOUND AND Boost_PROGRAM_OPTIONS_FOUND)
 	MESSAGE(STATUS "Boost found")
