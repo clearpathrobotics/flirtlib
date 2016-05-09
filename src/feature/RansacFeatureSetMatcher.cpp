@@ -83,13 +83,19 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
     }
     else { /* m_flann */
         // Number of nearest neighbours to use
-        size_t nn = 1;
-   
+        const size_t nn = 1;
+        const size_t data_size = data.size();
+        const size_t reference_size = reference.size();
+
+        if (!(data_size &&  reference_size)){
+          return std::numeric_limits<double>::max();
+        }
+
         // Create and fill the flann matrices from the data and reference descriptors
         std::vector<double> data_descriptors;
         std::vector<double> reference_descriptors;
-        std::vector<int> indices(data.size()*nn);
-        std::vector<double> distances(data.size()*nn);
+        std::vector<int> indices(data_size*nn);
+        std::vector<double> distances(data_size*nn);
 
         BOOST_FOREACH (const InterestPoint* ip, data){
             ip->getDescriptor()->getFlatDescription(data_descriptors);
@@ -99,10 +105,10 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
             ip->getDescriptor()->getFlatDescription(reference_descriptors);
         }
 
-        const size_t length = data_descriptors.size()/data.size();
+        const size_t length = data_descriptors.size()/data_size;
 
-        flann::Matrix<double> flann_query(&data_descriptors[0], data.size(), length);
-        flann::Matrix<double> flann_reference(&reference_descriptors[0], reference.size(), length);
+        flann::Matrix<double> flann_query(&data_descriptors[0], data_size, length);
+        flann::Matrix<double> flann_reference(&reference_descriptors[0], reference_size, length);
         flann::Matrix<int> flann_indices(&indices[0], flann_query.rows, nn);
         flann::Matrix<double> flann_distances(&distances[0], flann_query.rows, nn);
 
@@ -113,7 +119,7 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
         // do a knn search, using m_flannChecks checks
         index.knnSearch(flann_query, flann_indices, flann_distances, nn, flann::SearchParams(m_flannChecks));
 
-        for (int i=0; i<data.size(); ++i){
+        for (int i=0; i<data_size; ++i){
             possibleCorrespondences.push_back(std::make_pair(data[i], reference[indices[nn*i]]));
             minDistances.push_back(std::make_pair(minDistances.size(), distances[nn*i]));
         }
@@ -132,8 +138,8 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
         std::vector< std::pair<InterestPoint *, InterestPoint *> > tempCorrespondences;
         tempCorrespondences.reserve(m_maxCorrespondences);
         std::vector<IndexedDistance>::const_iterator iter = minDistances.begin();
-        for (; iter != minDistances.end(); ++iter){
-            tempCorrespondences.push_back(possibleCorrespondences[iter->first]);
+        BOOST_FOREACH (const IndexedDistance& id, minDistances) {
+            tempCorrespondences.push_back(possibleCorrespondences[id.first]);
         }
         possibleCorrespondences = tempCorrespondences;
     }
