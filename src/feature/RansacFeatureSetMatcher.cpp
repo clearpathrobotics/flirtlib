@@ -127,8 +127,8 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
     
     // Check if there are enough absolute matches 
     if(possibleCorrespondences.size() < 2){  
-        // std::cout << "Not enough possible correspondences" << std::endl;
-	    return 1e17;
+//      std::cout << "Not enough possible correspondences" << std::endl;
+        return 1e17;
     }
 
     if (possibleCorrespondences.size() > m_maxCorrespondences){
@@ -137,7 +137,7 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
         minDistances.resize(m_maxCorrespondences);
         std::vector< std::pair<InterestPoint *, InterestPoint *> > tempCorrespondences;
         tempCorrespondences.reserve(m_maxCorrespondences);
-        std::vector<IndexedDistance>::const_iterator iter = minDistances.begin();
+
         BOOST_FOREACH (const IndexedDistance& id, minDistances) {
             tempCorrespondences.push_back(possibleCorrespondences[id.first]);
         }

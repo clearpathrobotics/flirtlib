@@ -31,11 +31,11 @@ Descriptor* ShapeContext::clone() const{
 void ShapeContext::getFlatDescription(std::vector<double>& description) const {
     // TODO: This is a temporary solution to make FLANN use easy:
     // description.clear();
-	for(unsigned int i = 0; i < m_histogram.size(); i++){
-		for(unsigned int j = 0; j < m_histogram[i].size(); j++){
-	    description.push_back(m_histogram[i][j]);
-		}
-	}
+    for(unsigned int i = 0; i < m_histogram.size(); i++){
+        for(unsigned int j = 0; j < m_histogram[i].size(); j++){
+            description.push_back(m_histogram[i][j]);
+        }
+    }
 }
 
 double ShapeContext::distance(const Descriptor* descriptor) const {

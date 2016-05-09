@@ -76,30 +76,30 @@ class RansacFeatureSetMatcher: public AbstractFeatureSetMatcher {
 	/** Sets the flag for the adaptive RANSAC */
 	inline void setAdaptive(bool adaptive)
 	    {m_adaptive = adaptive;}
-	
+
 	/** Sets the probability of finding a correct match if exists. */ 
 	inline void setSuccessProbability(double successProbability)
 	    {m_successProbability = successProbability;}
-	
+
 	/** Sets the probability of a generic correspondence to be an inlier. */
 	inline void setInlierProbability(double inlierProbability)
 	    {m_inlierProbability = inlierProbability;}
-	
+
 	/** Sets the maximum distance (dimensionless) for two descriptors to be considered as a valid match */ 
 	inline void setDistanceThreshold(double distanceThreshold)
 	    {m_distanceThreshold = distanceThreshold;}
 
-    /** Sets the maximum number of correspondences to be used */
-    inline void setMaxCorrespondences(unsigned short maxCorrespondences)
-        {m_maxCorrespondences = maxCorrespondences;}
+	/** Sets the maximum number of correspondences to be used */
+	inline void setMaxCorrespondences(unsigned short maxCorrespondences)
+	    {m_maxCorrespondences = maxCorrespondences;}
 
-    /** Whether we do flann for search or not */
-    inline void useFlann(bool use_flann)
-        {m_flann = use_flann;}
+	/** Whether we do flann for search or not */
+	inline void useFlann(bool use_flann)
+	    {m_flann = use_flann;}
 
-    /** Number of leaf checks to use in flann */
-    inline void setFlannChecks(double checks)
-        {m_flannChecks = checks;}
+	/** Number of leaf checks to use in flann */
+	inline void setFlannChecks(double checks)
+	    {m_flannChecks = checks;}
 
     protected:
 	double m_successProbability; /**< The probability of finding a correct match if exists. */
@@ -108,9 +108,9 @@ class RansacFeatureSetMatcher: public AbstractFeatureSetMatcher {
 	double m_rigidityThreshold; /**< The maximum value (in meters) of difference between the relative distance of two interest points. This implements a rigidity check in the RANSAC hypothesis generation. */
 	bool m_adaptive; /**< The flag to set the adaptive strategy to compute the number of RANSAC iterations (EXPERIMENTAL!!!). */
 	bool m_scoreInliersOnly; /** This flag causes the returned score to involve only the found inliers. */
-    unsigned short m_maxCorrespondences; /**< The maximum number of correpondences to be used. */
-    bool m_flann; /**< If true use flann for correspondence search. */
-    unsigned short m_flannChecks; /*< Number of leaf checks to be done by FLANN search. */
+	unsigned short m_maxCorrespondences; /**< The maximum number of correpondences to be used. */
+	bool m_flann; /**< If true use flann for correspondence search. */
+	unsigned short m_flannChecks; /*< Number of leaf checks to be done by FLANN search. */
 };
 
 #endif
