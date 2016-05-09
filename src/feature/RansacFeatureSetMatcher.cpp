@@ -114,6 +114,8 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
 
         // construct a randomized kd-tree index using 4 kd-trees
         flann::Index<flann::L2<double> > index(flann_reference, flann::KDTreeIndexParams(4));
+        // TODO need to test different distance metrics for example:
+        // flann::Index<flann::ChiSquareDistance<double> > index(flann_reference, flann::KDTreeIndexParams(4));
         index.buildIndex();
 
         // do a knn search, using m_flannChecks checks
