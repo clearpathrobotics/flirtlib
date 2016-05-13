@@ -21,11 +21,9 @@
   <build_depend>libflann-dev</build_depend>
   <build_depend>doxygen</build_depend>
 
-  <build_export_depend>libflann-dev</build_export_depend>
 
   <exec_depend>libqt4</exec_depend>
   <exec_depend>libqt4-opengl</exec_depend>
-  <exec_depend>libflann</exec_depend>
 
   <export>
     <!-- Specify that this is not really a Catkin package-->
