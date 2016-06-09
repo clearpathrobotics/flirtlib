@@ -135,7 +135,7 @@ INCLUDE_DIRECTORIES(${FLIRT_SOURCE_DIR}/src)
 SET(LOCAL_OPTIMIZATION_FLAGS "-O3 -march=nocona -msse4.1 -funroll-loops -ftree-vectorize -DTBB -mfpmath=both")
 # SET(LOCAL_OPTIMIZATION_FLAGS "-O3 -march=native -msse4.2 -msse4.1 -funroll-loops -ftree-vectorize -DTBB -mfpmath=both")
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} ${LOCAL_OPTIMIZATION_FLAGS}")
-SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -std=gnu++0x ${LOCAL_OPTIMIZATION_FLAGS}")
+SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${LOCAL_OPTIMIZATION_FLAGS}")
 
 #Debug (it can clash with optimization)
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0 -g3 -ggdb3 -fno-inline -Wall")
