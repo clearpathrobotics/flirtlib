@@ -36,7 +36,7 @@ bool indexedDistanceCompare(const IndexedDistance& first, const IndexedDistance&
 
 RansacFeatureSetMatcher::RansacFeatureSetMatcher(double acceptanceThreshold, double successProbability, double inlierProbability, double distanceThreshold, double rigidityThreshold, bool adaptive, bool inliersScore):
     AbstractFeatureSetMatcher(acceptanceThreshold),
-    m_successProbability(std::min(std::max(successProbability, 0.0), 0.999)),
+    m_successProbability(std::min(std::max(successProbability, 0.1), 0.999)),
     m_inlierProbability(inlierProbability),
     m_distanceThreshold(distanceThreshold),
     m_rigidityThreshold(rigidityThreshold),
@@ -132,6 +132,24 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
         return 1e17;
     }
 
+    // if we have only two matches, we have only one hypothesis, skip RANSAC
+    if (possibleCorrespondences.size() == 2)
+    {
+      correspondences = possibleCorrespondences;
+      std::vector<std::pair<Point2D, Point2D> > pointCorrespondences(correspondences.size());
+      for(unsigned int i = 0; i < correspondences.size(); i++){
+          pointCorrespondences[i] = std::make_pair(correspondences[i].first->getPosition(), correspondences[i].second->getPosition());
+      }
+
+      compute2DPose(pointCorrespondences, transformation);
+      double score = verifyHypothesis(reference, data, transformation, correspondences);
+      if (m_scoreInliersOnly){
+        // Modify the score to be the sum of the errors of the inliers only
+        score -= (data.size()-correspondences.size())*m_acceptanceThreshold;
+      }
+      return score;
+    }
+
     if (possibleCorrespondences.size() > m_maxCorrespondences){
         // sort the min distances
         std::sort(minDistances.begin(), minDistances.end(), indexedDistanceCompare);
@@ -197,10 +215,14 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
 	    }
 	}
     }
+
+
     std::vector<std::pair<Point2D, Point2D> > pointCorrespondences(correspondences.size());
     for(unsigned int i = 0; i < correspondences.size(); i++){
 	pointCorrespondences[i] = std::make_pair(correspondences[i].first->getPosition(), correspondences[i].second->getPosition());
     }
+
+
     compute2DPose(pointCorrespondences, transformation);
     double score = verifyHypothesis(reference, data, transformation, correspondences);
     if (m_scoreInliersOnly){
