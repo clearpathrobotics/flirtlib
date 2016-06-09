@@ -57,8 +57,7 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
 					  std::vector< std::pair<InterestPoint *, InterestPoint *> > &correspondences) const
 {
     correspondences.clear();
-    unsigned int iterations = m_adaptive ? 1e17 : ceil(log(1. - m_successProbability)/log(1. - m_inlierProbability * m_inlierProbability));
-    
+
     // Compute possible correspondences based on 1-NN thresholding
     std::vector< std::pair<InterestPoint *, InterestPoint *> > possibleCorrespondences;
     std::vector<IndexedDistance> minDistances;
@@ -147,14 +146,18 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
     }
     
     // Check if there are enough matches compared to the inlier probability 
-    if(double(possibleCorrespondences.size()) * m_inlierProbability < 2){  
-// 	std::cout << "Not enough possible correspondences for the inlier probability" << std::endl;
-	return 1e17;
+    if(double(possibleCorrespondences.size()) * m_inlierProbability < 2)
+    {
+        std::cout << "WARNING: not enough possible correspondences for the inlier probability" << std::endl;
     }
     
     boost::mt19937 rng;
     boost::uniform_smallint<int> generator(0, possibleCorrespondences.size() - 1);
     
+
+    double inlierProbability = m_adaptive ? 2.0 / data.size() : m_inlierProbability;
+    unsigned int iterations = ceil(log(1. - m_successProbability)/log(1. - inlierProbability * inlierProbability));
+
     // Main loop
     double minimumScore = 1e17;
     for(unsigned int i = 0; i < iterations; i++){
@@ -187,8 +190,8 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
 	    
 	    // Adapt the number of iterations
 	    if (m_adaptive){
-		double inlierProbability = double(correspondences.size())/double(data.size());
-		iterations = ceil(log(1. - m_successProbability)/log(1. - inlierProbability * inlierProbability));
+		inlierProbability = double(correspondences.size())/double(data.size());
+                iterations = inlierProbability > 0.9 ? 0 : ceil(log(1. - m_successProbability)/log(1. - inlierProbability * inlierProbability));
 	    }
 	}
     }
