@@ -36,7 +36,7 @@ bool indexedDistanceCompare(const IndexedDistance& first, const IndexedDistance&
 
 RansacFeatureSetMatcher::RansacFeatureSetMatcher(double acceptanceThreshold, double successProbability, double inlierProbability, double distanceThreshold, double rigidityThreshold, bool adaptive, bool inliersScore):
     AbstractFeatureSetMatcher(acceptanceThreshold),
-    m_successProbability(successProbability),
+    m_successProbability(std::min(std::max(successProbability, 0.0), 0.999)),
     m_inlierProbability(inlierProbability),
     m_distanceThreshold(distanceThreshold),
     m_rigidityThreshold(rigidityThreshold),
