@@ -36,7 +36,7 @@ bool indexedDistanceCompare(const IndexedDistance& first, const IndexedDistance&
 
 RansacFeatureSetMatcher::RansacFeatureSetMatcher(double acceptanceThreshold, double successProbability, double inlierProbability, double distanceThreshold, double rigidityThreshold, bool adaptive, bool inliersScore):
     AbstractFeatureSetMatcher(acceptanceThreshold),
-    m_successProbability(successProbability),
+    m_successProbability(std::min(std::max(successProbability, 0.1), 0.999)),
     m_inlierProbability(inlierProbability),
     m_distanceThreshold(distanceThreshold),
     m_rigidityThreshold(rigidityThreshold),
@@ -57,8 +57,7 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
 					  std::vector< std::pair<InterestPoint *, InterestPoint *> > &correspondences) const
 {
     correspondences.clear();
-    unsigned int iterations = m_adaptive ? 1e17 : ceil(log(1. - m_successProbability)/log(1. - m_inlierProbability * m_inlierProbability));
-    
+
     // Compute possible correspondences based on 1-NN thresholding
     std::vector< std::pair<InterestPoint *, InterestPoint *> > possibleCorrespondences;
     std::vector<IndexedDistance> minDistances;
@@ -128,9 +127,27 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
     }
     
     // Check if there are enough absolute matches 
-    if(possibleCorrespondences.size() < 2){  
+    if (possibleCorrespondences.size() < 2){
 //      std::cout << "Not enough possible correspondences" << std::endl;
         return 1e17;
+    }
+
+    // if we have only two matches, we have only one hypothesis, skip RANSAC
+    if (possibleCorrespondences.size() == 2)
+    {
+      correspondences = possibleCorrespondences;
+      std::vector<std::pair<Point2D, Point2D> > pointCorrespondences(correspondences.size());
+      for(unsigned int i = 0; i < correspondences.size(); i++){
+          pointCorrespondences[i] = std::make_pair(correspondences[i].first->getPosition(), correspondences[i].second->getPosition());
+      }
+
+      compute2DPose(pointCorrespondences, transformation);
+      double score = verifyHypothesis(reference, data, transformation, correspondences);
+      if (m_scoreInliersOnly){
+        // Modify the score to be the sum of the errors of the inliers only
+        score -= (data.size()-correspondences.size())*m_acceptanceThreshold;
+      }
+      return score;
     }
 
     if (possibleCorrespondences.size() > m_maxCorrespondences){
@@ -147,14 +164,18 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
     }
     
     // Check if there are enough matches compared to the inlier probability 
-    if(double(possibleCorrespondences.size()) * m_inlierProbability < 2){  
-// 	std::cout << "Not enough possible correspondences for the inlier probability" << std::endl;
-	return 1e17;
+    if (double(possibleCorrespondences.size()) * m_inlierProbability < 2)
+    {
+        std::cout << "WARNING: not enough possible correspondences for the inlier probability" << std::endl;
     }
     
     boost::mt19937 rng;
     boost::uniform_smallint<int> generator(0, possibleCorrespondences.size() - 1);
     
+
+    double inlierProbability = m_adaptive ? 2.0 / possibleCorrespondences.size() : m_inlierProbability;
+    unsigned int iterations = ceil(log(1. - m_successProbability)/log(1. - inlierProbability * inlierProbability));
+
     // Main loop
     double minimumScore = 1e17;
     for(unsigned int i = 0; i < iterations; i++){
@@ -187,15 +208,21 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
 	    
 	    // Adapt the number of iterations
 	    if (m_adaptive){
-		double inlierProbability = double(correspondences.size())/double(data.size());
-		iterations = ceil(log(1. - m_successProbability)/log(1. - inlierProbability * inlierProbability));
+               inlierProbability = static_cast<double>(correspondences.size())/data.size();
+               const double inlierProbabilitySquared = inlierProbability * inlierProbability;
+               iterations = inlierProbabilitySquared > m_successProbability ? 1 :
+                            ceil(log(1. - m_successProbability)/log(1. - inlierProbabilitySquared));
 	    }
 	}
     }
+
+
     std::vector<std::pair<Point2D, Point2D> > pointCorrespondences(correspondences.size());
     for(unsigned int i = 0; i < correspondences.size(); i++){
 	pointCorrespondences[i] = std::make_pair(correspondences[i].first->getPosition(), correspondences[i].second->getPosition());
     }
+
+
     compute2DPose(pointCorrespondences, transformation);
     double score = verifyHypothesis(reference, data, transformation, correspondences);
     if (m_scoreInliersOnly){
