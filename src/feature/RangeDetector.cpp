@@ -20,7 +20,7 @@
 //
 
 #include "RangeDetector.h"
-#include <utils/Regression.h>
+#include <flirtlib/utils/Regression.h>
 
 
 RangeDetector::RangeDetector(const PeakFinder* peak, unsigned int scales, double sigma, double step, SmoothingFilterFamily filterType):

@@ -21,7 +21,7 @@
 #ifndef SIMPLEMINMAXPEAKFINDER_H_
 #define SIMPLEMINMAXPEAKFINDER_H_
 
-#include <utils/SimplePeakFinder.h>
+#include <flirtlib/utils/SimplePeakFinder.h>
 #include <vector>
 
 /**

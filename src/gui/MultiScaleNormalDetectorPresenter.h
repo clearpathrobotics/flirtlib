@@ -21,10 +21,10 @@
 #ifndef MULTISCALENORMALDETECTORPRESENTER_H_
 #define MULTISCALENORMALDETECTORPRESENTER_H_
 
-#include <gui/PeakFinderPresenter.h>
-#include <gui/MultiScaleDetectorPresenter.h>
-#include <gui/ParameterWidget.h>
-#include <feature/NormalDetector.h>
+#include <flirtlib/gui/PeakFinderPresenter.h>
+#include <flirtlib/gui/MultiScaleDetectorPresenter.h>
+#include <flirtlib/gui/ParameterWidget.h>
+#include <flirtlib/feature/NormalDetector.h>
 #include <QtCore/QVector>
 #include <QtCore/QObject>
 #include <QtCore/QString>

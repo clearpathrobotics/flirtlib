@@ -21,11 +21,11 @@
 #ifndef RANGEDETECTOR_H_
 #define RANGEDETECTOR_H_
 
-#include <feature/InterestPoint.h>
-#include <feature/Detector.h>
-#include <feature/MultiScaleDetector.h>
-#include <utils/Convolution.h>
-#include <utils/PeakFinder.h>
+#include <flirtlib/feature/InterestPoint.h>
+#include <flirtlib/feature/Detector.h>
+#include <flirtlib/feature/MultiScaleDetector.h>
+#include <flirtlib/utils/Convolution.h>
+#include <flirtlib/utils/PeakFinder.h>
 
 #include <vector>
 

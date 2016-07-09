@@ -21,7 +21,7 @@
 #ifndef NORMALBLOBDETECTOR_H_
 #define NORMALBLOBDETECTOR_H_
 
-#include <feature/NormalDetector.h>
+#include <flirtlib/feature/NormalDetector.h>
 
 /**
  * Representation of the normal blob detector.

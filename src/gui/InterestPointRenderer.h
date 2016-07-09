@@ -21,9 +21,9 @@
 #ifndef INTERESTPOINTRENDERER_H_
 #define INTERESTPOINTRENDERER_H_
 
-#include <gui/AbstractRenderer.h>
+#include <flirtlib/gui/AbstractRenderer.h>
 
-#include <geometry/point.h>
+#include <flirtlib/geometry/point.h>
 #include <vector>
 #include <GL/gl.h>
 #include <GL/glu.h>

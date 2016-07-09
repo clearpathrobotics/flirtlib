@@ -21,7 +21,7 @@
 
 #include "CurvatureDetector.h"
 
-#include <utils/Regression.h>
+#include <flirtlib/utils/Regression.h>
 
 
 #include <boost/version.hpp>

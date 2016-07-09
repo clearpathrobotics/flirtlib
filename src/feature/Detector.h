@@ -21,8 +21,8 @@
 #ifndef DETECTOR_H_
 #define DETECTOR_H_
 
-#include <feature/InterestPoint.h>
-#include <sensors/LaserReading.h>
+#include <flirtlib/feature/InterestPoint.h>
+#include <flirtlib/sensors/LaserReading.h>
 
 /**
  * Representation of an abstract detector.

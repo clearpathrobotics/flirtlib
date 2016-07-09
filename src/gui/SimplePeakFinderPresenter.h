@@ -21,9 +21,9 @@
 #ifndef SIMPLEPEAKFINDERPRESENTER_H_
 #define SIMPLEPEAKFINDERPRESENTER_H_
 
-#include <gui/PeakFinderPresenter.h>
-#include <gui/ParameterWidget.h>
-#include <utils/SimplePeakFinder.h>
+#include <flirtlib/gui/PeakFinderPresenter.h>
+#include <flirtlib/gui/ParameterWidget.h>
+#include <flirtlib/utils/SimplePeakFinder.h>
 #include <QtGui/QWidget>
 #include <QtCore/QObject>
 

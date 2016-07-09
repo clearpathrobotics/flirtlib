@@ -22,7 +22,7 @@
 #define BOXPARAMETERWIDGET_H_
 
 #include <QtGui/QGroupBox>
-#include <gui/ParameterWidget.h>
+#include <flirtlib/gui/ParameterWidget.h>
 
 class BoxParameterWidget: public ParameterWidget {
     public:

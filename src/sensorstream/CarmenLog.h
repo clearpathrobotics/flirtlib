@@ -21,11 +21,11 @@
 #ifndef CARMENLOG_H_
 #define CARMENLOG_H_
 
-#include <sensorstream/LogReader.h>
-#include <sensorstream/LogWriter.h>
-#include <sensors/AbstractReading.h>
-#include <sensors/LaserReading.h>
-#include <geometry/point.h>
+#include <flirtlib/sensorstream/LogReader.h>
+#include <flirtlib/sensorstream/LogWriter.h>
+#include <flirtlib/sensors/AbstractReading.h>
+#include <flirtlib/sensors/LaserReading.h>
+#include <flirtlib/geometry/point.h>
 
 #include <iostream>
 #include <sstream>

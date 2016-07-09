@@ -21,12 +21,12 @@
 #ifndef NORMALDETECTOR_H_
 #define NORMALDETECTOR_H_
 
-#include <feature/InterestPoint.h>
-#include <feature/Detector.h>
-#include <feature/MultiScaleDetector.h>
-#include <utils/Convolution.h>
-#include <utils/PeakFinder.h>
-#include <utils/Regression.h>
+#include <flirtlib/feature/InterestPoint.h>
+#include <flirtlib/feature/Detector.h>
+#include <flirtlib/feature/MultiScaleDetector.h>
+#include <flirtlib/utils/Convolution.h>
+#include <flirtlib/utils/PeakFinder.h>
+#include <flirtlib/utils/Regression.h>
 
 #include <vector>
 

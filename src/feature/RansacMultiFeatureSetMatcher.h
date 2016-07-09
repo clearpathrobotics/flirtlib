@@ -21,8 +21,8 @@
 #ifndef RANSACMULTIFEATURESETMATCHER_H_
 #define RANSACMULTIFEATURESETMATCHER_H_
 
-#include <feature/RansacFeatureSetMatcher.h>
-#include <utils/PoseEstimation.h>
+#include <flirtlib/feature/RansacFeatureSetMatcher.h>
+#include <flirtlib/utils/PoseEstimation.h>
 #include <vector>
 #include <utility>
 

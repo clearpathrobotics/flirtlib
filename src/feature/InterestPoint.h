@@ -21,8 +21,8 @@
 #ifndef INTERESTPOINT_H_
 #define INTERESTPOINT_H_
 
-#include <geometry/point.h>
-#include <feature/Descriptor.h>
+#include <flirtlib/geometry/point.h>
+#include <flirtlib/feature/Descriptor.h>
 #include <vector>
 
 #include <boost/serialization/base_object.hpp>

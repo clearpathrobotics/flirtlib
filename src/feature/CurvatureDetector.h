@@ -21,10 +21,10 @@
 #ifndef CURVATUREDETECTOR_H_
 #define CURVATUREDETECTOR_H_
 
-#include <feature/InterestPoint.h>
-#include <feature/Detector.h>
-#include <utils/Convolution.h>
-#include <utils/PeakFinder.h>
+#include <flirtlib/feature/InterestPoint.h>
+#include <flirtlib/feature/Detector.h>
+#include <flirtlib/utils/Convolution.h>
+#include <flirtlib/utils/PeakFinder.h>
 #include <boost/graph/adjacency_matrix.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/graph_utility.hpp>

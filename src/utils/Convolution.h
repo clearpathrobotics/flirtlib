@@ -92,7 +92,7 @@ template<class Numeric>
 std::ostream& operator<<(std::ostream& out, const std::vector<Numeric>& vector);
 
 // real implementation
-#include <utils/Convolution.hpp>
+#include <flirtlib/utils/Convolution.hpp>
 
 #endif
 
