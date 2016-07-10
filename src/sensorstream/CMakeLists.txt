@@ -3,14 +3,6 @@ SET(sensorstream_SRCS
     LogSensorStream.cpp
 )
 
-SET(sensorstream_HDRS
-    LogReader.h
-    LogWriter.h
-    SensorStream.h
-    CarmenLog.h
-    LogSensorStream.h
-)
-
 SET(sensorstream_LIBS
     flirtlib_sensors
     flirtlib_geometry
@@ -24,4 +16,4 @@ install(TARGETS flirtlib_sensorstream
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib)
 
-install(FILES ${sensorstream_HDRS} DESTINATION include/flirtlib/sensorstream)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/flirtlib/sensorstream DESTINATION include/flirtlib)

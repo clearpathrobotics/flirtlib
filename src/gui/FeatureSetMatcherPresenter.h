@@ -24,7 +24,7 @@
 #include <flirtlib/feature/AbstractFeatureSetMatcher.h>
 #include <QtGui/QWidget>
 #include <QtCore/QObject>
-#include <flirtlib/gui/ParameterWidget.h>
+#include "ParameterWidget.h"
 
 class FeatureSetMatcherPresenter: public QObject{
     Q_OBJECT

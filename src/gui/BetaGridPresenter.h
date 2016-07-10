@@ -21,8 +21,8 @@
 #ifndef BETGRIDPRESENTER_H_
 #define BETGRIDPRESENTER_H_
 
-#include <flirtlib/gui/DescriptorPresenter.h>
-#include <flirtlib/gui/ParameterWidget.h>
+#include "DescriptorPresenter.h"
+#include "ParameterWidget.h"
 #include <flirtlib/feature/BetaGrid.h>
 #include <QtGui/QWidget>
 #include <QtCore/QObject>

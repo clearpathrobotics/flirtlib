@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "NormalDetector.h"
+#include <flirtlib/feature/NormalDetector.h>
 
 #include <iostream>
 

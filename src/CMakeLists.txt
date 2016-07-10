@@ -129,6 +129,7 @@ ELSE(CAIRO_FOUND)
 ENDIF(CAIRO_FOUND)
 
 INCLUDE_DIRECTORIES(${FLIRT_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # ---------------------------- Setting compilation flags ------------------------------
 # Optimization

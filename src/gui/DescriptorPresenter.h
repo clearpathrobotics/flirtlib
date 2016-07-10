@@ -24,7 +24,7 @@
 #include <flirtlib/feature/Descriptor.h>
 #include <QtGui/QWidget>
 #include <QtCore/QObject>
-#include <flirtlib/gui/ParameterWidget.h>
+#include "ParameterWidget.h"
 
 class DescriptorPresenter: public QObject{
     public:

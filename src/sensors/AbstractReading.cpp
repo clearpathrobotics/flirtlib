@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "AbstractReading.h"
+#include <flirtlib/sensors/AbstractReading.h>
 
 AbstractReading::AbstractReading(double _time, const std::string& _name, const std::string& _robot):
     m_time(_time),

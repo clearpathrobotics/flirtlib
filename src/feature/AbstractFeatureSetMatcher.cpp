@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "AbstractFeatureSetMatcher.h"
+#include <flirtlib/feature/AbstractFeatureSetMatcher.h>
 
 AbstractFeatureSetMatcher::AbstractFeatureSetMatcher(double acceptanceThreshold):
     m_acceptanceThreshold(acceptanceThreshold)

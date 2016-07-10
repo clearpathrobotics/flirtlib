@@ -24,7 +24,7 @@
 #include <flirtlib/utils/PeakFinder.h>
 #include <QtGui/QWidget>
 #include <QtCore/QObject>
-#include <flirtlib/gui/ParameterWidget.h>
+#include "ParameterWidget.h"
 
 class PeakFinderPresenter: public QObject{
     public:

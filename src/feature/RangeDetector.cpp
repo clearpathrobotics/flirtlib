@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "RangeDetector.h"
+#include <flirtlib/feature/RangeDetector.h>
 #include <flirtlib/utils/Regression.h>
 
 

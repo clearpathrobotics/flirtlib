@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "CarmenLog.h"
+#include <flirtlib/sensorstream/CarmenLog.h>
 
 #include <boost/algorithm/string/predicate.hpp>
 #include <math.h>

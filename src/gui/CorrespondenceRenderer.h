@@ -21,7 +21,7 @@
 #ifndef CORRESPONDENCERENDERER_H_
 #define CORRESPONDENCERENDERER_H_
 
-#include <flirtlib/gui/AbstractRenderer.h>
+#include "AbstractRenderer.h"
 
 #include <flirtlib/geometry/point.h>
 #include <vector>

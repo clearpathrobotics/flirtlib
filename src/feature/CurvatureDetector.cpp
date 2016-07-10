@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "CurvatureDetector.h"
+#include <flirtlib/feature/CurvatureDetector.h>
 
 #include <flirtlib/utils/Regression.h>
 
@@ -34,7 +34,7 @@
 // wget https://raw.githubusercontent.com/boostorg/graph/boost-1.55.0/include/boost/graph/dijkstra_shortest_paths.hpp
 // Including the local dijkstra_shortest_paths here will shadow any subsequent includes of the system 1.54 version
 #warning "Using dijkstra_shortest_paths.hpp from Boost 1.55!"
-#include "dijkstra_shortest_paths.hpp"
+#include <flirtlib/feature/dijkstra_shortest_paths.hpp>
 #endif
 
 #include <boost/graph/prim_minimum_spanning_tree.hpp>

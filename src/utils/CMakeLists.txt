@@ -5,18 +5,6 @@ SET(utils_SRCS
     PoseEstimation.cpp
 )
 
-SET(utils_HDRS
-    Convolution.h
-    Convolution.hpp
-    HistogramDistances.h
-    HistogramDistances.hpp
-    PeakFinder.h
-    PoseEstimation.h
-    Regression.h
-    SimpleMinMaxPeakFinder.h
-    SimplePeakFinder.h
-)
-
 ADD_LIBRARY(flirtlib_utils SHARED ${utils_SRCS})
 
 TARGET_LINK_LIBRARIES(flirtlib_utils flirtlib_geometry)
@@ -26,4 +14,4 @@ install(TARGETS flirtlib_utils
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib)
 
-install(FILES ${utils_HDRS} DESTINATION include/flirtlib/utils)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/flirtlib/utils DESTINATION include/flirtlib)

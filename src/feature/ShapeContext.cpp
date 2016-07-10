@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "ShapeContext.h"
+#include <flirtlib/feature/ShapeContext.h>
 
 
 BOOST_CLASS_EXPORT(ShapeContext);

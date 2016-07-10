@@ -21,8 +21,8 @@
 #ifndef DETECTORCHOOSERPRESENTER_H_
 #define DETECTORCHOOSERPRESENTER_H_
 
-#include <flirtlib/gui/DetectorPresenter.h>
-#include <flirtlib/gui/ParameterWidget.h>
+#include "DetectorPresenter.h"
+#include "ParameterWidget.h"
 #include <QtGui/QComboBox>
 #include <QtGui/QLabel>
 #include <QtGui/QGridLayout>

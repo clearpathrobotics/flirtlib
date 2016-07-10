@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "BetaGrid.h"
+#include <flirtlib/feature/BetaGrid.h>
 
 #include <sstream>
 #include <cstdio>

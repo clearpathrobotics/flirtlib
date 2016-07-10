@@ -21,8 +21,8 @@
 #ifndef DESCRIPTORCHOOSERPRESENTER_H_
 #define DESCRIPTORCHOOSERPRESENTER_H_
 
-#include <flirtlib/gui/DescriptorPresenter.h>
-#include <flirtlib/gui/ParameterWidget.h>
+#include "DescriptorPresenter.h"
+#include "ParameterWidget.h"
 #include <QtGui/QComboBox>
 #include <QtGui/QLabel>
 #include <QtGui/QGridLayout>

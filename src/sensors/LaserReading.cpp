@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "LaserReading.h"
+#include <flirtlib/sensors/LaserReading.h>
 
 
 using namespace std;

@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "LogSensorStream.h"
+#include <flirtlib/sensorstream/LogSensorStream.h>
 
 LogSensorStream::LogSensorStream(const LogReader* _reader, const LogWriter* _writer):
     m_index(0),

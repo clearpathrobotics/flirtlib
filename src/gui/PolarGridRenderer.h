@@ -21,7 +21,7 @@
 #ifndef POLARGRIDRENDERER_H_
 #define POLARGRIDRENDERER_H_
 
-#include <flirtlib/gui/AbstractRenderer.h>
+#include "AbstractRenderer.h"
 
 #include <flirtlib/geometry/point.h>
 #include <vector>

@@ -21,7 +21,7 @@
 #ifndef LASERREADINGRENDERER_H_
 #define LASERREADINGRENDERER_H_
 
-#include <flirtlib/gui/AbstractRenderer.h>
+#include "AbstractRenderer.h"
 
 #include <flirtlib/geometry/point.h>
 #include <vector>

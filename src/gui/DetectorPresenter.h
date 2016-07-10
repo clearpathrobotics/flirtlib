@@ -22,7 +22,7 @@
 #define DETECTORPRESENTER_H_
 
 #include <flirtlib/feature/Detector.h>
-#include <flirtlib/gui/ParameterWidget.h>
+#include "ParameterWidget.h"
 #include <QtGui/QWidget>
 #include <QtCore/QObject>
 
