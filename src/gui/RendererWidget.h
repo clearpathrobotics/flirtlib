@@ -21,7 +21,7 @@
 #ifndef RENDERERWIDGET_H_
 #define RENDERERWIDGET_H_
 
-#include <gui/AbstractRenderer.h>
+#include "AbstractRenderer.h"
 
 #include <QtOpenGL/QGLWidget>
 #include <QtGui/QMouseEvent>

@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "NormalEdgeDetector.h"
+#include <flirtlib/feature/NormalEdgeDetector.h>
 
 
 NormalEdgeDetector::NormalEdgeDetector(const PeakFinder* peak, unsigned int scales, double sigma, double step, unsigned int window, SmoothingFilterFamily filterType):

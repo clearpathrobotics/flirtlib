@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "InterestPoint.h"
+#include <flirtlib/feature/InterestPoint.h>
 
 InterestPoint::InterestPoint(const OrientedPoint2D& _position, double _scale, const Descriptor* _descriptor):
     m_position(_position),

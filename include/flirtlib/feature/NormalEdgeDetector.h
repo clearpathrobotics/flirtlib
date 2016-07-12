@@ -18,22 +18,22 @@
  * along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NORMALBLOBDETECTOR_H_
-#define NORMALBLOBDETECTOR_H_
+#ifndef NORMALEDGEDETECTOR_H_
+#define NORMALEDGEDETECTOR_H_
 
-#include <feature/NormalDetector.h>
+#include <flirtlib/feature/NormalDetector.h>
 
 /**
- * Representation of the normal blob detector.
- * The class represents the normal blob detector defined in the paper. It extracts blobs (extrema of the second derivative) on the normal signal.
+ * Representation of the normal edge detector.
+ * The class represents the normal edge detector defined in the paper. It extracts edges (extrema of the first derivative) on the normal signal.
  *
  * @author Gian Diego Tipaldi
  */
 
-class NormalBlobDetector: public NormalDetector {
+class NormalEdgeDetector: public NormalDetector {
     public:
 		/** 
-		 * Constructor. Constructs and initialize the normal blob detector. 
+		 * Constructor. Constructs and initialize the normal edge detector. 
 		 *
 		 * @param peak The peak finder used to detect maxima in the signal.
 		 * @param scales The number of different scales to consider.
@@ -42,13 +42,13 @@ class NormalBlobDetector: public NormalDetector {
 		 * @param window The window size for the local line fitting.
 		 * @param filterType The smoothing kernel used in the detector.
 		 */
-		NormalBlobDetector(const PeakFinder* peak, unsigned int scales = 5, double sigma = 1.6, double step = 1.4, unsigned int window = 3, SmoothingFilterFamily filterType = BESSEL);
-
-	/** Default destructor. */
-	virtual ~NormalBlobDetector() { }
+		NormalEdgeDetector(const PeakFinder* peak, unsigned int scales = 5, double sigma = 1.6, double step = 1.4, unsigned int window = 3, SmoothingFilterFamily filterType = BESSEL);
 	
+	/** Virtual Default destructor. */
+	virtual ~NormalEdgeDetector() { }
+
     protected:
-		/** Computes the bank for the second derivative at different scales. */
+		/** Computes the bank for the first derivative at different scales. */
 		virtual void computeDifferentialBank();
 };
 

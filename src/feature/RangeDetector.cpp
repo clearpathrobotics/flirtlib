@@ -19,8 +19,8 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "RangeDetector.h"
-#include <utils/Regression.h>
+#include <flirtlib/feature/RangeDetector.h>
+#include <flirtlib/utils/Regression.h>
 
 
 RangeDetector::RangeDetector(const PeakFinder* peak, unsigned int scales, double sigma, double step, SmoothingFilterFamily filterType):

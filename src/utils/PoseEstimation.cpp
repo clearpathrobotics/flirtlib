@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "PoseEstimation.h"
+#include <flirtlib/utils/PoseEstimation.h>
 
 double compute2DPose(const std::vector< std::pair<Point2D, Point2D> > &correspondences, OrientedPoint2D& transformation)
 {

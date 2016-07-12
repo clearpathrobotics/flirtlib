@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "MultiScaleDetector.h"
+#include <flirtlib/feature/MultiScaleDetector.h>
 
 
 MultiScaleDetector::MultiScaleDetector(const PeakFinder* _peak, unsigned int _scales, double _sigma, double step, SmoothingFilterFamily _filterType):

@@ -21,11 +21,11 @@
 #ifndef LOGSENSORSTREAM_H_
 #define LOGSENSORSTREAM_H_
 
-#include <sensorstream/SensorStream.h>
-#include <sensorstream/LogReader.h>
-#include <sensorstream/LogWriter.h>
-#include <sensorstream/LogReader.h>
-#include <sensors/AbstractReading.h>
+#include <flirtlib/sensorstream/SensorStream.h>
+#include <flirtlib/sensorstream/LogReader.h>
+#include <flirtlib/sensorstream/LogWriter.h>
+#include <flirtlib/sensorstream/LogReader.h>
+#include <flirtlib/sensors/AbstractReading.h>
 
 #include <iostream>
 #include <fstream>

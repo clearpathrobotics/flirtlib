@@ -21,10 +21,10 @@
 #ifndef PEAKFINDERPRESENTER_H_
 #define PEAKFINDERPRESENTER_H_
 
-#include <utils/PeakFinder.h>
+#include <flirtlib/utils/PeakFinder.h>
 #include <QtGui/QWidget>
 #include <QtCore/QObject>
-#include <gui/ParameterWidget.h>
+#include "ParameterWidget.h"
 
 class PeakFinderPresenter: public QObject{
     public:

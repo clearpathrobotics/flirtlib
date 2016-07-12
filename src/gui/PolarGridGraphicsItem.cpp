@@ -22,7 +22,7 @@
 #include "PolarGridGraphicsItem.h"
 
 #include <cmath>
-#include <geometry/point.h>
+#include <flirtlib/geometry/point.h>
 
 
 PolarGridGraphicsItem::PolarGridGraphicsItem(const std::vector< std::vector<double> > *grid, const std::vector<double> *phiEdges, const std::vector<double> *rhoEdges, QGraphicsItem* parent):

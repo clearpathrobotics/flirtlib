@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "Regression.h"
+#include <flirtlib/utils/Regression.h>
 
 LineParameters computeNormals(const std::vector<Point2D>& _points, const std::vector<double>& _weights){
     if (_weights.size()!=_points.size()) return computeNormals(_points);

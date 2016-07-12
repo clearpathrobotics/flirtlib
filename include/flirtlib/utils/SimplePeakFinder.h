@@ -21,7 +21,7 @@
 #ifndef SIMPLEPEAKFINDER_H_
 #define SIMPLEPEAKFINDER_H_
 
-#include <utils/PeakFinder.h>
+#include <flirtlib/utils/PeakFinder.h>
 #include <vector>
 
 /**

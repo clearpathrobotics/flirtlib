@@ -21,9 +21,9 @@
 #ifndef RANSACPRESENTER_H_
 #define RANSACPRESENTER_H_
 
-#include <gui/FeatureSetMatcherPresenter.h>
-#include <gui/ParameterWidget.h>
-#include <feature/RansacFeatureSetMatcher.h>
+#include "FeatureSetMatcherPresenter.h"
+#include "ParameterWidget.h"
+#include <flirtlib/feature/RansacFeatureSetMatcher.h>
 #include <QtGui/QWidget>
 #include <QtCore/QObject>
 

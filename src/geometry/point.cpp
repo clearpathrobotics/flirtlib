@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "point.h"
+#include <flirtlib/geometry/point.h>
 
 Point2D::Point2D(): 
     x(0.0),

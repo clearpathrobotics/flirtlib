@@ -19,20 +19,20 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include <feature/Detector.h>
-#include <feature/ShapeContext.h>
-#include <feature/BetaGrid.h>
-#include <feature/RangeDetector.h>
-#include <feature/CurvatureDetector.h>
-#include <feature/NormalBlobDetector.h>
-#include <feature/NormalEdgeDetector.h>
-#include <feature/RansacFeatureSetMatcher.h>
-#include <feature/RansacMultiFeatureSetMatcher.h>
-#include <sensorstream/CarmenLog.h>
-#include <sensorstream/LogSensorStream.h>
-#include <sensorstream/SensorStream.h>
-#include <utils/SimpleMinMaxPeakFinder.h>
-#include <utils/HistogramDistances.h>
+#include <flirtlib/feature/Detector.h>
+#include <flirtlib/feature/ShapeContext.h>
+#include <flirtlib/feature/BetaGrid.h>
+#include <flirtlib/feature/RangeDetector.h>
+#include <flirtlib/feature/CurvatureDetector.h>
+#include <flirtlib/feature/NormalBlobDetector.h>
+#include <flirtlib/feature/NormalEdgeDetector.h>
+#include <flirtlib/feature/RansacFeatureSetMatcher.h>
+#include <flirtlib/feature/RansacMultiFeatureSetMatcher.h>
+#include <flirtlib/sensorstream/CarmenLog.h>
+#include <flirtlib/sensorstream/LogSensorStream.h>
+#include <flirtlib/sensorstream/SensorStream.h>
+#include <flirtlib/utils/SimpleMinMaxPeakFinder.h>
+#include <flirtlib/utils/HistogramDistances.h>
 
 #include <cairo.h>
 #include <cairo-pdf.h>

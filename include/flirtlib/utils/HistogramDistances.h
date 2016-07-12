@@ -153,7 +153,7 @@ class JensenShannonDistance: public HistogramDistance<Numeric>{
 };
 static EuclideanDistance<double> standardEuclideanDistance;
 
-#include <utils/HistogramDistances.hpp>
+#include <flirtlib/utils/HistogramDistances.hpp>
 
 #endif
 

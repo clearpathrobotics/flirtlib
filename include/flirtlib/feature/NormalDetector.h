@@ -18,49 +18,58 @@
  * along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RANGEDETECTOR_H_
-#define RANGEDETECTOR_H_
+#ifndef NORMALDETECTOR_H_
+#define NORMALDETECTOR_H_
 
-#include <feature/InterestPoint.h>
-#include <feature/Detector.h>
-#include <feature/MultiScaleDetector.h>
-#include <utils/Convolution.h>
-#include <utils/PeakFinder.h>
+#include <flirtlib/feature/InterestPoint.h>
+#include <flirtlib/feature/Detector.h>
+#include <flirtlib/feature/MultiScaleDetector.h>
+#include <flirtlib/utils/Convolution.h>
+#include <flirtlib/utils/PeakFinder.h>
+#include <flirtlib/utils/Regression.h>
 
 #include <vector>
 
 /**
- * Representation of the range based detector.
- * The class represents the range based detector defined in the paper. It extracts blobs (extrema of the second derivative) on the range signal. 
- * This is equivalent of applying the theory behind the SIFT detector on the monodimensional range image.
+ * Representation of a general detector based on the normal signal.
+ * The class represents a general detector based on the normal signal. It computes the normal signal and define the general interface for detection. 
+ * The concrete detectors provides the precise differential invariant.
  *
  * @author Gian Diego Tipaldi
  */
 
-class RangeDetector: public MultiScaleDetector {
+class NormalDetector: public MultiScaleDetector {
     public:
 		/** 
-		 * Constructor. Constructs and initialize the range based detector. 
+		 * Constructor. Constructs and initialize a general detector based on a normal signal. 
 		 *
 		 * @param peak The peak finder used to detect maxima in the signal.
 		 * @param scales The number of different scales to consider.
 		 * @param sigma The standard deviation of the smoothing kernel for the initial scale (\f$ t_0 \f$ in the paper). 
 		 * @param step The scale increment at every new scale (\f$ t_i \f$ in the paper). The standard deviation of the kernel at scale \f$ s \f$ is \f$ t_0 \cdot (t_i)^s \f$
+		 * @param window The window size for the local line fitting.
 		 * @param filterType The smoothing kernel used in the detector.
 		 */
-		RangeDetector(const PeakFinder* peak, unsigned int scales = 5, double sigma = 1.6, double step = 1.4, SmoothingFilterFamily filterType = BESSEL);
-
+		NormalDetector(const PeakFinder* peak, unsigned int scales = 5, double sigma = 1.6, double step = 1.4, unsigned int window = 3, SmoothingFilterFamily filterType = BESSEL);
+		
 	/** Virtual Default destructor. */
-	virtual ~RangeDetector() { }
+	virtual ~NormalDetector() { }
+
+		/** Sets the window size for the local line fitting. */
+		inline void setWindowSize(unsigned int size)
+			{m_windowSize = size;}
+			
+		/** Gets the window size for the local line fitting. */
+		inline unsigned int getWindowSize() const
+			{return m_windowSize;}
 	
     protected:
-		/** Computes the bank for the second derivative at different scales. */
-		virtual void computeDifferentialBank();
-		
+		virtual void computeDifferentialBank() = 0;
 		virtual void computeSignal(const LaserReading& reading, std::vector<double>& signal, std::vector<unsigned int>& maxRangeMapping) const;
-		
 		virtual unsigned int computeInterestPoints(const LaserReading& reading, const std::vector<double>& signal, std::vector<InterestPoint*>& point, 
-						   std::vector< std::vector<unsigned int> >& indexes, std::vector<unsigned int>& maxRangeMapping) const;
+							std::vector< std::vector<unsigned int> >& indexes, std::vector<unsigned int>& maxRangeMapping) const;
+							
+		unsigned int m_windowSize; /**< The window size for the local line fitting. */
 };
 
 #endif

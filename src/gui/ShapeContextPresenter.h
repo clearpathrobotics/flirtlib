@@ -21,9 +21,9 @@
 #ifndef SHAPECONTEXTPRESENTER_H_
 #define SHAPECONTEXTPRESENTER_H_
 
-#include <gui/DescriptorPresenter.h>
-#include <gui/ParameterWidget.h>
-#include <feature/ShapeContext.h>
+#include "DescriptorPresenter.h"
+#include "ParameterWidget.h"
+#include <flirtlib/feature/ShapeContext.h>
 #include <QtGui/QWidget>
 #include <QtCore/QObject>
 

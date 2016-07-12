@@ -21,8 +21,8 @@
 #ifndef LASERREADING_H_
 #define LASERREADING_H_
 
-#include <sensors/AbstractReading.h>
-#include <geometry/point.h>
+#include <flirtlib/sensors/AbstractReading.h>
+#include <flirtlib/geometry/point.h>
 #include <string>
 #include <vector>
 #include <cmath>

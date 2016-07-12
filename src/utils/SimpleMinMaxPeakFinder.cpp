@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "SimpleMinMaxPeakFinder.h"
+#include <flirtlib/utils/SimpleMinMaxPeakFinder.h>
 
 SimpleMinMaxPeakFinder::SimpleMinMaxPeakFinder(double minValue, double minDifference):
     SimplePeakFinder(minValue, minDifference)

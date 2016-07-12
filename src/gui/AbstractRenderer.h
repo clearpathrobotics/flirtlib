@@ -23,7 +23,7 @@
 
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <gui/Color.h>
+#include "Color.h"
 
 class AbstractRenderer {
     public:

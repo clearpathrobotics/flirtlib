@@ -19,7 +19,7 @@
 // along with FLIRTLib.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "RansacMultiFeatureSetMatcher.h"
+#include <flirtlib/feature/RansacMultiFeatureSetMatcher.h>
 
 #include <boost/random.hpp>
 #include <boost/random/uniform_smallint.hpp>

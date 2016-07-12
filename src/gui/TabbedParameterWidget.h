@@ -22,7 +22,7 @@
 #define TABBEDPARAMETERWIDGET_H_
 
 #include <QtGui/QTabWidget>
-#include <gui/ParameterWidget.h>
+#include "ParameterWidget.h"
 
 class TabbedParameterWidget: public ParameterWidget {
     public:

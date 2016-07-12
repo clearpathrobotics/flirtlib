@@ -4,7 +4,7 @@
 #  @CMAKE_PROJECT_NAME@_INCLUDE_DIRS - Include directories for @CMAKE_PROJECT_NAME@
 #  @CMAKE_PROJECT_NAME@_LIBRARIES    - Libraries for @CMAKE_PROJECT_NAME@
 
-set(FLIRT_INCLUDE_DIRS ${CMAKE_CURRENT_LIST_DIR}/../../../include/flirtlib)
+set(FLIRT_INCLUDE_DIRS ${CMAKE_CURRENT_LIST_DIR}/../../../include)
 
 foreach(lib feature geometry sensors sensorstream utils)
   list(APPEND FLIRT_LIBRARIES ${CMAKE_CURRENT_LIST_DIR}/../../../lib/@CMAKE_SHARED_LIBRARY_PREFIX@flirtlib_${lib}@CMAKE_SHARED_LIBRARY_SUFFIX@)
