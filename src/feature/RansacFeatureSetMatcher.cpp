@@ -164,10 +164,10 @@ double RansacFeatureSetMatcher::matchSets(const std::vector<InterestPoint *> &re
     }
     
     // Check if there are enough matches compared to the inlier probability 
-    if (double(possibleCorrespondences.size()) * m_inlierProbability < 2)
-    {
-        std::cout << "WARNING: not enough possible correspondences for the inlier probability" << std::endl;
-    }
+    //if (double(possibleCorrespondences.size()) * m_inlierProbability < 2)
+    //{
+    //    std::cout << "WARNING: not enough possible correspondences for the inlier probability" << std::endl;
+    //}
     
     boost::mt19937 rng;
     boost::uniform_smallint<int> generator(0, possibleCorrespondences.size() - 1);
