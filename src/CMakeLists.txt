@@ -11,7 +11,7 @@ endif(NOT CMAKE_BUILD_TYPE)
 OPTION(BUILD_SHARED_LIBS "Build package with shared libraries." ON)
 
 # ---------------------------- Defining building options ------------------------------
-option(BUILD_GUI "Build the GUI" ON)
+option(BUILD_GUI "Build the GUI" OFF)
 
 
 # ---------------------------- Checking the OS ------------------------------
