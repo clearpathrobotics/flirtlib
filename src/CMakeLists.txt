@@ -12,7 +12,13 @@ OPTION(BUILD_SHARED_LIBS "Build package with shared libraries." ON)
 
 # ---------------------------- Defining building options ------------------------------
 option(BUILD_GUI "Build the GUI" OFF)
+option(BUILD_APPS "Build the apps" OFF)
+option(BUILD_SENSORSTREAM "Build sensorstream" OFF)
 
+IF(NOT BUILD_SENSORSTREAM)
+        SET(BUILD_GUI 0)
+        SET(BUILD_APPS 0)
+ENDIF(NOT BUILD_SENSORSTREAM)
 
 # ---------------------------- Checking the OS ------------------------------
 IF("${CMAKE_SYSTEM}" MATCHES "Linux")
@@ -150,12 +156,18 @@ SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -std=gnu++0x -O0 -g3 -ggdb3 
 
 ADD_SUBDIRECTORY(geometry)
 ADD_SUBDIRECTORY(sensors)
-ADD_SUBDIRECTORY(sensorstream)
+
+IF(BUILD_SENSORSTREAM)
+        ADD_SUBDIRECTORY(sensorstream)
+ENDIF(BUILD_SENSORSTREAM)
+
 ADD_SUBDIRECTORY(feature)
 ADD_SUBDIRECTORY(utils)
 
 IF(BUILD_GUI)
 	ADD_SUBDIRECTORY(gui)
 ENDIF(BUILD_GUI)
-ADD_SUBDIRECTORY(applications)
 
+IF(BUILD_APPS)
+        ADD_SUBDIRECTORY(applications)
+ENDIF(BUILD_APPS)
