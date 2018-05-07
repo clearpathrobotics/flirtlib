@@ -61,15 +61,18 @@ void MultiScaleDetector::detect(const std::vector<double>& signal,
     signalSmooth.resize(m_scaleNumber);
     signalDiff.resize(m_scaleNumber);
     indexes.resize(m_scaleNumber);
+    const auto s = signal.size();
     for(unsigned int i = 0; i < m_filterBank.size(); i++){
 	int offsetRange = floor((int)m_filterBank[i].size()/2.0);
-	if(offsetRange > signal.size()) continue;
-	signalSmooth[i] = convolve1D(signal, m_filterBank[i], -offsetRange); 
-	signalDiff[i] = convolve1D(signalSmooth[i], m_differentialBank[i], -1);
-	for(unsigned int j = offsetRange + 1; j < signal.size() - offsetRange - 1; j++){
-	    if(m_peakFinder->isPeak(signalDiff[i], j)){
-		indexes[i].push_back(j);
-	    }
+	if(2 * (offsetRange + 1) < s)
+	{
+	    signalSmooth[i] = convolve1D(signal, m_filterBank[i], -offsetRange);
+	    signalDiff[i] = convolve1D(signalSmooth[i], m_differentialBank[i], -1);
+	    for(unsigned int j = offsetRange + 1; j < s - offsetRange - 1; j++){
+		if(m_peakFinder->isPeak(signalDiff[i], j)){
+		    indexes[i].push_back(j);
+		}
+	}
 	}
     }
 }
