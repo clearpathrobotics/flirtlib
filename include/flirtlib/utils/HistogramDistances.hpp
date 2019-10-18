@@ -43,7 +43,6 @@ double HistogramDistance<Numeric>::distance(const std::vector< std::vector<Numer
     if (first.size() != weightFirst.size()) return 10e16;
     if (last.size() != weightLast.size()) return 10e16;
     double accumulator = 0.;
-    double normalizer = 0.;
     for (unsigned int i = 0; i < first.size(); i++){
 	accumulator += distance(first[i], weightFirst[i], last[i],  weightLast[i]);
     }
