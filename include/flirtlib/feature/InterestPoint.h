@@ -118,7 +118,7 @@ class InterestPoint {
 };
 
 template<class Archive>
-void InterestPoint::serialize(Archive& ar, const unsigned int version)
+void InterestPoint::serialize(Archive& ar, const unsigned int /*version*/)
 {
     ar & BOOST_SERIALIZATION_NVP(m_position);
     ar & BOOST_SERIALIZATION_NVP(m_supportPoints);

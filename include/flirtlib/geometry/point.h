@@ -55,7 +55,7 @@ struct Point2D {
     virtual ~Point2D() { }
 };
 template<class Archive>
-void Point2D::serialize(Archive& ar, const unsigned int version)
+void Point2D::serialize(Archive& ar, const unsigned int /*version*/)
 {
     ar & BOOST_SERIALIZATION_NVP(x);
     ar & BOOST_SERIALIZATION_NVP(y);
@@ -98,7 +98,7 @@ struct OrientedPoint2D: public Point2D {
 };
 
 template<class Archive>
-void OrientedPoint2D::serialize(Archive& ar, const unsigned int version)
+void OrientedPoint2D::serialize(Archive& ar, const unsigned int /*version*/)
 {
     ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Point2D);
     ar & BOOST_SERIALIZATION_NVP(theta);

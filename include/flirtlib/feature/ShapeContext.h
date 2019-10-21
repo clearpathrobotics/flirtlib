@@ -80,7 +80,7 @@ class ShapeContext: public Descriptor{
 };
 
 template <class Archive>
-void ShapeContext::serialize(Archive & ar, const unsigned int version)
+void ShapeContext::serialize(Archive & ar, const unsigned int /*version*/)
 {
     ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Descriptor);
     ar & BOOST_SERIALIZATION_NVP(m_histogram);
