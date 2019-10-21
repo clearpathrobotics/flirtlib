@@ -79,7 +79,7 @@ class Descriptor {
 };
 
 template<class Archive>
-void Descriptor::serialize(Archive& ar, const unsigned int version)
+void Descriptor::serialize(Archive& /*ar*/, const unsigned int /*version*/)
 {
     BOOST_SERIALIZATION_ASSUME_ABSTRACT(Descriptor);
 }
